@@ -23,10 +23,16 @@ public class IssuedBookService {
     private BookClient bookClient;
 
     public void issueBook(IssuedBooks issuedBooks) {
+        if(issuedBooks == null) {
+            throw new IllegalArgumentException("IssuedBooks cannot be null");
+        }
         issuedBooksRepository.save(issuedBooks);
     }
 
     public List<IssuedBooksGetDTO> getIssuedBookById(Long userId) {
+        if(userId == null) {
+            throw new IllegalArgumentException("User ID cannot be null");
+        }
         List<IssuedBooks> issuedBooks = issuedBooksRepository.findByUserId(userId);
         System.out.println("Issued Books: " + issuedBooks);
         List<IssuedBooksGetDTO> books =  issuedBooks.stream()
@@ -51,9 +57,9 @@ public class IssuedBookService {
                 System.out.println("Updating return date to: " + issuedBookUpdate.getReturnDate());
                 issuedBook.setReturnDate(issuedBookUpdate.getReturnDate());
             }
-            if (issuedBookUpdate.isReturned() != null) {
-                System.out.println("Updating returned status to: " + issuedBookUpdate.isReturned());
-                issuedBook.setReturned(issuedBookUpdate.isReturned());
+            if (issuedBookUpdate.getIsReturned() != null) {
+                System.out.println("Updating returned status to: " + issuedBookUpdate.getIsReturned());
+                issuedBook.setIsReturned(issuedBookUpdate.getIsReturned());
             }
         }
         System.out.println("Saving updated Issued Book: " + issuedBook);
