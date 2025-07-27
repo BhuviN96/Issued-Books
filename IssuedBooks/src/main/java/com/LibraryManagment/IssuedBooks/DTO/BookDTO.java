@@ -15,6 +15,14 @@ public class BookDTO {
     private String publisher;
     private LocalDate publishedDate;
 
+    public BookDTO(String name, String description, String author, String publisher, LocalDate publishedDate) {
+        this.name = name;
+        this.description = description;
+        this.author = author;
+        this.publisher = publisher;
+        this.publishedDate = publishedDate;
+    }
+
     public String getName() {
         return name;
     }

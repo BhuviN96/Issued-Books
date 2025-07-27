@@ -1,5 +1,6 @@
 package com.LibraryManagment.IssuedBooks.Model;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotNull;
 import lombok.AllArgsConstructor;
@@ -8,11 +9,10 @@ import lombok.NoArgsConstructor;
 import java.time.LocalDate;
 
 @Entity
-@NoArgsConstructor
-@AllArgsConstructor
 public class IssuedBooks {
     @Id
-    @GeneratedValue
+    @GeneratedValue(strategy = GenerationType.AUTO, generator = "issue_seq")
+    @SequenceGenerator(name = "issue_seq", sequenceName = "issue_sequence", initialValue = 1000, allocationSize = 1)
     private Long issueId;
     @NotNull
     private Long bookId;
@@ -21,7 +21,18 @@ public class IssuedBooks {
     @NotNull
     private LocalDate issueDate;
     private LocalDate returnDate;
-    private boolean isReturned;
+    @JsonProperty(value = "isReturned")
+    private Boolean isReturned;
+
+    public IssuedBooks() {
+    }
+    public IssuedBooks(Long bookId, Long userId, LocalDate issueDate, LocalDate returnDate, Boolean isReturned) {
+        this.bookId = bookId;
+        this.userId = userId;
+        this.issueDate = issueDate;
+        this.returnDate = returnDate;
+        this.isReturned = isReturned;
+    }
 
     @PrePersist
     public void prePersist() {
@@ -82,11 +93,23 @@ public class IssuedBooks {
         this.returnDate = returnDate;
     }
 
-    public boolean isReturned() {
+    public Boolean isReturned() {
         return isReturned;
     }
 
-    public void setReturned(boolean returned) {
+    public void setReturned(Boolean returned) {
         isReturned = returned;
+    }
+
+    @Override
+    public String toString() {
+        return "IssuedBooks{" +
+                "issueId=" + issueId +
+                ", bookId=" + bookId +
+                ", userId=" + userId +
+                ", issueDate=" + issueDate +
+                ", returnDate=" + returnDate +
+                ", isReturned=" + isReturned +
+                '}';
     }
 }

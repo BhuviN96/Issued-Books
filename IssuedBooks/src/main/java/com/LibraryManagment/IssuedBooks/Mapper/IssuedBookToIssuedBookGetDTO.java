@@ -8,12 +8,6 @@ import java.util.List;
 
 public class IssuedBookToIssuedBookGetDTO {
     public static IssuedBooksGetDTO mapToIssuedBooksGetDTO(IssuedBooks issuedBooksData, BookDTO issuedBooks) {
-
-        IssuedBooksGetDTO issuedBooksGetDTO = new IssuedBooksGetDTO();
-        issuedBooksGetDTO.setBook(issuedBooks);
-        issuedBooksGetDTO.setIssueDate(issuedBooksData.getIssueDate());
-        issuedBooksGetDTO.setReturnDate(issuedBooksData.getReturnDate());
-        issuedBooksGetDTO.setReturned(issuedBooksData.isReturned());
-        return issuedBooksGetDTO;
+        return new IssuedBooksGetDTO(issuedBooks,issuedBooksData.getIssueDate(),issuedBooksData.getReturnDate(),issuedBooksData.isReturned());
     }
 }

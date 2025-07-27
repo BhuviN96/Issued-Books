@@ -11,6 +11,13 @@ public class IssuedBooksGetDTO {
     private LocalDate returnDate;
     private boolean isReturned;
 
+    public IssuedBooksGetDTO(BookDTO book, LocalDate issueDate, LocalDate returnDate, boolean isReturned) {
+        this.book = book;
+        this.issueDate = issueDate;
+        this.returnDate = returnDate;
+        this.isReturned = isReturned;
+    }
+
     public BookDTO getBook() {
         return book;
     }
